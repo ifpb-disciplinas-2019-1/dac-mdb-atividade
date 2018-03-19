@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -19,6 +20,9 @@ public class Pedido implements Serializable {
 
     @OneToMany
     private List<Produto> produtos;
+    
+    @ManyToOne
+    private Cliente cliente;
 
     public Pedido() {
         this.produtos = new ArrayList<>();
@@ -32,6 +36,13 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
+    public void add(Produto produto) {
+        this.produtos.add(produto);
+    }
+
+    public void remove(Produto produto) {
+        this.produtos.remove(produto);
+    }
     public List<Produto> getProdutos() {
         return produtos;
     }
@@ -40,11 +51,13 @@ public class Pedido implements Serializable {
         this.produtos = produtos;
     }
 
-    public void add(Produto produto) {
-        this.produtos.add(produto);
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void remove(Produto produto) {
-        this.produtos.remove(produto);
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
+
+    
 }
