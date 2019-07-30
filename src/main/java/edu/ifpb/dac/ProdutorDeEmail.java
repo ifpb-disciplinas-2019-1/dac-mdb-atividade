@@ -5,7 +5,7 @@ import javax.ejb.Stateless;
 import javax.jms.*;
 
 @JMSDestinationDefinitions(
-        
+
 )
 
 @Stateless

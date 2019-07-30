@@ -24,7 +24,7 @@ public class ConsumidorDeEmail implements MessageListener{
         try {
             String mensagem = message.getBody(String.class);
             
-            System.out.println("Mensagem :" + mensagem);
+            System.out.println(mensagem);
         } catch (JMSException ex) {
             Logger.getLogger(ConsumidorDeEmail.class.getName()).log(Level.SEVERE, null, ex);
         }
