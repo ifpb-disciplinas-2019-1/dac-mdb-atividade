@@ -7,22 +7,29 @@ import javax.jms.*;
 @Stateless
 public class ProdutorDeEmail {
 
-    @Resource(lookup = "jms/email");
-    private Queue queue;
+    @Resource(lookup = "jms/email")
+    private Topic topic;
 
-    @Resource(lookup = "jms/__defaultConnectionFactory");
+    @Resource(lookup = "jms/__defaultConnectionFactory")
     private ConnectionFactory factory;
 
-    public void enviarEmail(String destinatário, String corpo){
+    public void enviarEmail(boolean confirmacao, String destinatário, String corpo){
 
         JMSContext context = factory.createContext();
         JMSProducer producer = context.createProducer();
+
+        if (confirmacao == false){
+            corpo = "OLá "+ destinatário + ", estamos aguardando a confirmação de pagamento.";
+        }
+        else {
+            corpo = "Olá "+ destinatário + ", a compra foi confirmada, espere o envio do produto.";
+        }
 
         //cria email
         ObjectMessage objectMessage = context.createObjectMessage(new Email(destinatário, corpo));
 
         //envia pra queue
-        producer.send(queue, objectMessage);
+        producer.send(topic, objectMessage);
 
     }
 }
