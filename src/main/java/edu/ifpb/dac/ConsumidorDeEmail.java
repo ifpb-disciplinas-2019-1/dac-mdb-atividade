@@ -1,17 +1,33 @@
 package edu.ifpb.dac;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
-import javax.inject.Inject;
+import javax.ejb.MessageDriven;
 import javax.jms.JMSContext;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
 import javax.jms.Topic;
 
-public class ConsumidorDeEmail {
-
-    @Resource(lookup = "jms/email")
+@MessageDriven(
+    mappedName = "java:global/jms/email"
+)
+public class ConsumidorDeEmail implements MessageListener{
+ 
     private Topic topic;
-
-    @Inject
+   
     private JMSContext jmsContext;
 
+    @Override
+    public void onMessage(Message message) {
+        try {
+            String mensagem = message.getBody(String.class);
+            
+            System.out.println("Mensagem :" + mensagem);
+        } catch (JMSException ex) {
+            Logger.getLogger(ConsumidorDeEmail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }
