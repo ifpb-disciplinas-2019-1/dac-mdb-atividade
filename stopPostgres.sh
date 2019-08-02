@@ -1,5 +1,5 @@
 
-ECHO 'Parando banco mdb'
-docker stop mdb
-docker rm mdb
-docker rmi -f mdb
+ECHO 'Parando banco JMSbd'
+docker stop JMSbd
+docker rm JMSbd
+docker rmi -f JMSbd

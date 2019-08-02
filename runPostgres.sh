@@ -1,4 +1,4 @@
 
-ECHO 'Iniciando banco Mdb'
-docker build -t mdb/atividade ./postgres
-docker run -p 5432:5433 --name mdb d mdb/atividade
+ECHO 'Iniciando banco JMSbd'
+docker build -t jms/bd ./postgres
+docker run -p 5433:5432 --name JMSbd -d jms/bd
