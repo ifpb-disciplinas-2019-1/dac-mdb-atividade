@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cartaoCredito;
+package edu.ifpb.dac.cartaoCredito;
 
 import edu.ifpb.dac.InformacaoPedido;
 import javax.annotation.Resource;
