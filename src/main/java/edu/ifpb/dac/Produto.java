@@ -2,7 +2,9 @@ package edu.ifpb.dac;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 public class Produto implements Serializable {
 
     @Id
+    @GeneratedValue
     private int id;
     private String descricao;
     private BigDecimal preco;
