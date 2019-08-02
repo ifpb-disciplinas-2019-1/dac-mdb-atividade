@@ -1,4 +1,4 @@
-package inicializador;
+package edu.ifpb.dac.inicializador;
 
 import javax.jms.*;
 
