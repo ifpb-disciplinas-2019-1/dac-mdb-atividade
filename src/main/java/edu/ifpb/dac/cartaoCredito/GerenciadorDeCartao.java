@@ -5,7 +5,7 @@
  */
 package edu.ifpb.dac.cartaoCredito;
 
-import edu.ifpb.dac.InfomacaoPedido;
+import edu.ifpb.dac.InformacaoPedido;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jms.ConnectionFactory;
@@ -25,10 +25,11 @@ public class GerenciadorDeCartao {
     @Resource(lookup = "jms/__defaultConnectionFactory")
     private ConnectionFactory factory;
     
-    public void verificarPedido(InfomacaoPedido informacaoPedido){
+    public void verificarPedido(InformacaoPedido informacaoPedido){
         JMSContext context = factory.createContext();
         JMSProducer producer = context.createProducer();
-        if(ValidadorDePedido.validar(informacaoPedido)){
+        ValidadorDePedido validador = new ValidadorDePedido();
+        if(validador.validar(informacaoPedido)){
             informacaoPedido.setStatus(true);
         }else{
             informacaoPedido.setStatus(false);
