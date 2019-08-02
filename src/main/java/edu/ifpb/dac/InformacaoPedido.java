@@ -12,14 +12,14 @@ import java.math.BigDecimal;
  *
  * @author ian
  */
-public class InfomacaoPedido implements Serializable{
+public class InformacaoPedido implements Serializable{
     private String cpfCliente;
     private String idPedido;
     private String email;
     private BigDecimal valorPedido;
     private boolean status;
 
-    public InfomacaoPedido(String cpfCliente, String idPedido, String email, BigDecimal valorPedido, boolean status) {
+    public InformacaoPedido(String cpfCliente, String idPedido, String email, BigDecimal valorPedido, boolean status) {
         this.cpfCliente = cpfCliente;
         this.idPedido = idPedido;
         this.email = email;
@@ -30,7 +30,7 @@ public class InfomacaoPedido implements Serializable{
     
     
 
-    public InfomacaoPedido() {
+    public InformacaoPedido() {
     }
 
     public String getCpfCliente() {
@@ -77,7 +77,7 @@ public class InfomacaoPedido implements Serializable{
     
     @Override
     public String toString() {
-        return "InfomacaoPedido{" + "cpfCliente=" + cpfCliente + ", idPedido=" + idPedido + ", valorPedido=" + valorPedido + ", status=" + status + '}';
+        return "InformacaoPedido{" + "cpfCliente=" + cpfCliente + ", idPedido=" + idPedido + ", valorPedido=" + valorPedido + ", status=" + status + '}';
     }
     
     
