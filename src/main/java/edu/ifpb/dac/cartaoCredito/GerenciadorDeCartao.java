@@ -26,10 +26,14 @@ public class GerenciadorDeCartao {
     private ConnectionFactory factory;
     
     public void verificarPedido(InfomacaoPedido informacaoPedido){
-        
         JMSContext context = factory.createContext();
         JMSProducer producer = context.createProducer();
-        Message message = context.createObjectMessage();
-        
+        if(ValidadorDePedido.validar(informacaoPedido)){
+            informacaoPedido.setStatus(true);
+        }else{
+            informacaoPedido.setStatus(false);
+        }
+        Message message = context.createObjectMessage(informacaoPedido);
+        producer.send(queue, message);
     }
 }
