@@ -3,6 +3,10 @@
   <persistence-unit name="atividadeJms" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>java:app/jdbc/persistence_jms</jta-data-source>
+    <class>edu.ifpb.dac.Cartao</class>
+    <class>edu.ifpb.dac.Cliente</class>
+    <class>edu.ifpb.dac.Pedido</class>
+    <class>edu.ifpb.dac.Produto</class>
     
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

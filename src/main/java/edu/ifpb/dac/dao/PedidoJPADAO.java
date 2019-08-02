@@ -5,8 +5,10 @@ import edu.ifpb.dac.dao.jpa.PedidoDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ejb.Stateless;
 import java.util.List;
 
+@Stateless
 public class PedidoJPADAO  implements PedidoDAO {
 
     @PersistenceContext
