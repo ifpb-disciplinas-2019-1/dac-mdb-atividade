@@ -3,10 +3,7 @@ package edu.ifpb.dac;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  *
@@ -16,6 +13,7 @@ import javax.persistence.OneToMany;
 public class Pedido implements Serializable {
 
     @Id
+    @GeneratedValue
     private int id;
 
     @OneToMany
