@@ -4,11 +4,12 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * @author Ricardo Job
  * @mail ricardo.job@ifpb.edu.br
- * @since 19/03/2018, 08:32:25
+ * @since 02/08/2019, 06:32:25
  */
 @Entity
 public class Cliente implements Serializable {
@@ -18,6 +19,9 @@ public class Cliente implements Serializable {
     private int id;
     private String nome;
     private String email;
+    
+//    @OneToOne
+//    private Cartao cartao;
 
     public Cliente() {
     }
