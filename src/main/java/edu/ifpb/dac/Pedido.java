@@ -22,6 +22,8 @@ public class Pedido implements Serializable {
     @ManyToOne
     private Cliente cliente;
 
+    private double valorFinal;
+
     public Pedido() {
         this.produtos = new ArrayList<>();
     }
@@ -57,5 +59,11 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
     }
 
-    
+    public double getValorFinal() {
+        return valorFinal;
+    }
+
+    public void setValorFinal(double valorFinal) {
+        this.valorFinal = valorFinal;
+    }
 }

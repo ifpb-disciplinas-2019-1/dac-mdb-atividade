@@ -16,6 +16,7 @@ public class Cliente implements Serializable {
     private int id;
     private String nome;
     private String email;
+    private String cpf;
     
 //    @OneToOne
 //    private Cartao cartao;
@@ -23,9 +24,10 @@ public class Cliente implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(String nome, String email) {
+    public Cliente(String nome, String email, String cpf) {
         this.nome = nome;
         this.email = email;
+        this.cpf = cpf;
     }
 
     public int getId() {
@@ -52,4 +54,11 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 }
