@@ -12,25 +12,25 @@ import java.math.BigDecimal;
  *
  * @author ian
  */
-public class InfomacaoPedido implements Serializable{
+public class InformacaoPedido implements Serializable{
     private String cpfCliente;
     private String idPedido;
     private String email;
     private BigDecimal valorPedido;
-    private boolean status;
+    private boolean concluido;
 
-    public InfomacaoPedido(String cpfCliente, String idPedido, String email, BigDecimal valorPedido, boolean status) {
+    public InformacaoPedido(String cpfCliente, String idPedido, String email, BigDecimal valorPedido, boolean concluido) {
         this.cpfCliente = cpfCliente;
         this.idPedido = idPedido;
         this.email = email;
         this.valorPedido = valorPedido;
-        this.status = status;
+        this.concluido = concluido;
     }
     
     
     
 
-    public InfomacaoPedido() {
+    public InformacaoPedido() {
     }
 
     public String getCpfCliente() {
@@ -57,12 +57,12 @@ public class InfomacaoPedido implements Serializable{
         this.valorPedido = valorPedido;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isConcluido() {
+        return concluido;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setConcluido(boolean concluido) {
+        this.concluido = concluido;
     }
 
     public String getEmail() {
@@ -77,7 +77,7 @@ public class InfomacaoPedido implements Serializable{
     
     @Override
     public String toString() {
-        return "InfomacaoPedido{" + "cpfCliente=" + cpfCliente + ", idPedido=" + idPedido + ", valorPedido=" + valorPedido + ", status=" + status + '}';
+        return "InformacaoPedido{" + "cpfCliente=" + cpfCliente + ", idPedido=" + idPedido + ", valorPedido=" + valorPedido + ", concluido=" + concluido + '}';
     }
     
     

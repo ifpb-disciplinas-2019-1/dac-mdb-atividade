@@ -6,6 +6,7 @@
 package edu.ifpb.dac;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -19,9 +20,9 @@ public class Cartao implements Serializable{
     private String numero;
     private String cpfPropietario;
     private String nomePropietario;
-    private String limite;
+    private BigDecimal limite;
 
-    public Cartao(String numero, String cpfPropietario, String nomePropietario, String limite) {
+    public Cartao(String numero, String cpfPropietario, String nomePropietario, BigDecimal limite) {
         this.numero = numero;
         this.cpfPropietario = cpfPropietario;
         this.nomePropietario = nomePropietario;
@@ -55,12 +56,16 @@ public class Cartao implements Serializable{
         this.nomePropietario = nomePropietario;
     }
 
-    public String getLimite() {
+    public BigDecimal getLimite() {
         return limite;
     }
 
-    public void setLimite(String limite) {
+    public void setLimite(BigDecimal limite) {
         this.limite = limite;
+    }
+
+    public boolean temLimite(BigDecimal valor){
+        return this.getLimite().compareTo(valor) > 0;
     }
     
 }
