@@ -63,5 +63,9 @@ public class Cartao implements Serializable{
     public void setLimite(BigDecimal limite) {
         this.limite = limite;
     }
+
+    public boolean temLimite(BigDecimal valor){
+        return this.getLimite().compareTo(valor) > 0;
+    }
     
 }

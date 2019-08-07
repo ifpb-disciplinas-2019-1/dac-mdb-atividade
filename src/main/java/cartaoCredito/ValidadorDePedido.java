@@ -19,7 +19,7 @@ public class ValidadorDePedido {
         query.setParameter("cpf",infomacaoPedido.getCpfCliente());
         Cartao cartao = query.getSingleResult();
 
-        return cartao.getLimite().compareTo(infomacaoPedido.getValorPedido()) > 0;
+        return cartao.temLimite(infomacaoPedido.getValorPedido());
     }
 
 }
