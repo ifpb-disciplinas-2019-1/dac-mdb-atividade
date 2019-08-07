@@ -5,13 +5,19 @@
  */
 package edu.ifpb.dac.cartaoCredito;
 
+import cartaoCredito.ValidadorDePedido;
 import edu.ifpb.dac.InformacaoPedido;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
+import javax.jms.JMSException;
 import javax.jms.JMSProducer;
 import javax.jms.Message;
+import javax.jms.MessageListener;
 import javax.jms.Queue;
 
 /**
@@ -19,22 +25,42 @@ import javax.jms.Queue;
  * @author ian
  */
 @Stateless
-public class GerenciadorDeCartao {
+public class GerenciadorDeCartao implements MessageListener {
+
     @Resource(lookup = "java:global/jms/email")
     Queue queue;
     @Resource(lookup = "jms/__defaultConnectionFactory")
     private ConnectionFactory factory;
-    
-    public void verificarPedido(InformacaoPedido informacaoPedido){
+    @Inject
+    ValidadorDePedido validador;
+
+    public void verificarPedido(InformacaoPedido informacaoPedido) {
         JMSContext context = factory.createContext();
         JMSProducer producer = context.createProducer();
-        ValidadorDePedido validador = new ValidadorDePedido();
-        if(validador.validar(informacaoPedido)){
+
+        if (validador.validar(informacaoPedido)) {
             informacaoPedido.setConcluido(true);
-        }else{
+        } else {
             informacaoPedido.setConcluido(false);
         }
         Message message = context.createObjectMessage(informacaoPedido);
         producer.send(queue, message);
+    }
+
+    @Override
+    public void onMessage(Message message) {
+        JMSContext context = factory.createContext();
+        JMSProducer producer = context.createProducer();
+        try {
+            InformacaoPedido informacaoPedido = message.getBody(InformacaoPedido.class);
+            if (validador.validar(informacaoPedido)) {
+                informacaoPedido.setConcluido(true);
+            } else {
+                informacaoPedido.setConcluido(false);
+            }
+            producer.send(queue, message);
+        } catch (JMSException ex) {
+            Logger.getLogger(GerenciadorDeCartao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
