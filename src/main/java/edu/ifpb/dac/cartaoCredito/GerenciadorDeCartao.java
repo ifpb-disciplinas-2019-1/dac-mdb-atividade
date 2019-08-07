@@ -5,6 +5,7 @@
  */
 package edu.ifpb.dac.cartaoCredito;
 
+import cartaoCredito.ValidadorDePedido;
 import edu.ifpb.dac.InformacaoPedido;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -30,9 +31,9 @@ public class GerenciadorDeCartao {
         JMSProducer producer = context.createProducer();
         ValidadorDePedido validador = new ValidadorDePedido();
         if(validador.validar(informacaoPedido)){
-            informacaoPedido.setStatus(true);
+            informacaoPedido.setConcluido(true);
         }else{
-            informacaoPedido.setStatus(false);
+            informacaoPedido.setConcluido(false);
         }
         Message message = context.createObjectMessage(informacaoPedido);
         producer.send(queue, message);
