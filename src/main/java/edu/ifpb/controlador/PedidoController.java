@@ -8,6 +8,7 @@ import edu.ifpb.dac.dao.jpa.PedidoDAO;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,13 +18,17 @@ import java.util.List;
 @SuppressWarnings("/serial/")
 @RequestScoped
 @Named
-public class PedidoController {
+public class PedidoController implements Serializable {
 
     @Inject
     PedidoDAO pedidoDAO;
 
     public String salvar(Pedido pedido){
         this.pedidoDAO.save(pedido);
+        return "";
+    }
+    public String atualizar(Pedido pedido){
+        this.pedidoDAO.update(pedido);
         return "";
     }
 
