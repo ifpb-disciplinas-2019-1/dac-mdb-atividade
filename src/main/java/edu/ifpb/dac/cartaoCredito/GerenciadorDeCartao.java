@@ -34,19 +34,6 @@ public class GerenciadorDeCartao implements MessageListener {
     @Inject
     ValidadorDePedido validador;
 
-    public void verificarPedido(InformacaoPedido informacaoPedido) {
-        JMSContext context = factory.createContext();
-        JMSProducer producer = context.createProducer();
-
-        if (validador.validar(informacaoPedido)) {
-            informacaoPedido.setConcluido(true);
-        } else {
-            informacaoPedido.setConcluido(false);
-        }
-        Message message = context.createObjectMessage(informacaoPedido);
-        producer.send(queue, message);
-    }
-
     @Override
     public void onMessage(Message message) {
         JMSContext context = factory.createContext();
