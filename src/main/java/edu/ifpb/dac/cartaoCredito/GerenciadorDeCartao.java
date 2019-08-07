@@ -30,9 +30,9 @@ public class GerenciadorDeCartao {
         JMSProducer producer = context.createProducer();
         ValidadorDePedido validador = new ValidadorDePedido();
         if(validador.validar(informacaoPedido)){
-            informacaoPedido.setStatus(true);
+            informacaoPedido.setConcluido(true);
         }else{
-            informacaoPedido.setStatus(false);
+            informacaoPedido.setConcluido(false);
         }
         Message message = context.createObjectMessage(informacaoPedido);
         producer.send(queue, message);
