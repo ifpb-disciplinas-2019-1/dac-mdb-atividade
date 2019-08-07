@@ -16,17 +16,30 @@ public class PedidoJPADAO  implements PedidoDAO {
 
     @Override
     public void save(Pedido pedido) {
-        em.persist(pedido);
+        try {
+            em.persist(pedido);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update(Pedido pedido) {
-        em.merge(pedido);
+        try{
+            em.merge(pedido);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public void remove(Pedido pedido) {
-        em.remove(pedido);
+        try {
+            Pedido remove = em.find(Pedido.class, pedido.getId());
+            em.remove(remove);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @Override
