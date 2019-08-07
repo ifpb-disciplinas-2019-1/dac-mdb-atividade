@@ -1,5 +1,7 @@
 package edu.ifpb.dac.dao;
 
+import java.math.BigDecimal;
+
 import javax.annotation.Resource;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
@@ -19,7 +21,7 @@ public class PedidoService {
     @Resource(lookup = "jms/__defaultConnectionFactory")
     private ConnectionFactory factory;
     
-    private void enviarPedidoJMS(InfomacaoPedido informacaoPedido) {
+    private void enviarPedidoJMS(InformacaoPedido informacaoPedido) {
     	JMSContext context = factory.createContext();
         JMSProducer producer = context.createProducer();
         // criar a mensagem
@@ -36,11 +38,12 @@ public class PedidoService {
 	
 	public void efetuarPedido(Pedido pedido) {
 		pedidoJPADAO.save(pedido);
-		InfomacaoPedido infomacaoPedido = new InfomacaoPedido(
-				"", 
-				pedido.getId(), 
+		
+		InformacaoPedido informacaoPedido = new InformacaoPedido(
+				"cpf", 
+				String.valueOf(pedido.getId()), 
 				pedido.getCliente().getEmail(), 
-				(Big 0.3, 
+				BigDecimal.valueOf(1.0), 
 				false);
 	
 		
