@@ -1,6 +1,7 @@
 package edu.ifpb.dac;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -22,13 +23,23 @@ public class Pedido implements Serializable {
     @ManyToOne
     private Cliente cliente;
 
-    private double valorFinal;
+    private BigDecimal valorFinal;
 
     public Pedido() {
         this.produtos = new ArrayList<>();
     }
+    
+    
 
-    public int getId() {
+    public Pedido(int id, List<Produto> produtos, Cliente cliente, BigDecimal valorFinal) {
+		super();
+		this.id = id;
+		this.produtos = produtos;
+		this.cliente = cliente;
+		this.valorFinal = valorFinal;
+	}
+
+	public int getId() {
         return id;
     }
 
@@ -59,11 +70,11 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
     }
 
-    public double getValorFinal() {
+    public BigDecimal getValorFinal() {
         return valorFinal;
     }
 
-    public void setValorFinal(double valorFinal) {
+    public void setValorFinal(BigDecimal valorFinal) {
         this.valorFinal = valorFinal;
     }
 }
