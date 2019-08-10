@@ -1,4 +1,4 @@
-package edu.ifpb.dac;
+package edu.ifpb.dac.model.entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;

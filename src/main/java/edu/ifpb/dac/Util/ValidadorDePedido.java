@@ -1,11 +1,10 @@
 package edu.ifpb.dac.Util;
 
-import edu.ifpb.dac.Cartao;
-import edu.ifpb.dac.InformacaoPedido;
+import edu.ifpb.dac.model.entidades.Cartao;
+import edu.ifpb.dac.model.entidades.InformacaoPedido;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Stateless
 public class ValidadorDePedido {

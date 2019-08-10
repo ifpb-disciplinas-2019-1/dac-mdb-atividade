@@ -3,32 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ifpb.dac.cartaoCredito;
+package edu.ifpb.dac.services;
 
 import edu.ifpb.dac.Util.ValidadorDePedido;
-import edu.ifpb.dac.InformacaoPedido;
+import edu.ifpb.dac.model.entidades.InformacaoPedido;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSContext;
-import javax.jms.JMSException;
-import javax.jms.JMSProducer;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.Queue;
+import javax.jms.*;
 
 /**
  *
  * @author ian
  */
+
+@MessageDriven(activationConfig = {
+        @ActivationConfigProperty(propertyName = "destinationType",propertyValue = "javax.jms.Topic"),
+        @ActivationConfigProperty(propertyName = "destinationLookup",propertyValue = "java:global/jms/pedido")
+})
 @Stateless
-public class GerenciadorDeCartao implements MessageListener {
+public class CartaoService implements MessageListener {
 
     @Resource(lookup = "java:global/jms/email")
-    Queue queue;
+    private Queue queue;
+
     @Resource(lookup = "jms/__defaultConnectionFactory")
     private ConnectionFactory factory;
     @Inject
@@ -45,9 +47,10 @@ public class GerenciadorDeCartao implements MessageListener {
             } else {
                 informacaoPedido.setConcluido(false);
             }
+            message = context.createObjectMessage(informacaoPedido);
             producer.send(queue, message);
         } catch (JMSException ex) {
-            Logger.getLogger(GerenciadorDeCartao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CartaoService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

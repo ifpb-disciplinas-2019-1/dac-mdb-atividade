@@ -1,7 +1,7 @@
-package edu.ifpb.dac.dao;
+package edu.ifpb.dac.model.dao.implementations;
 
-import edu.ifpb.dac.Pedido;
-import edu.ifpb.dac.dao.jpa.PedidoDAO;
+import edu.ifpb.dac.model.entidades.Pedido;
+import edu.ifpb.dac.model.dao.interfaces.PedidoDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

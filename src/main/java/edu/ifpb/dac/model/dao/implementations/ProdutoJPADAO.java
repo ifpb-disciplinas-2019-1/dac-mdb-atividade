@@ -1,7 +1,7 @@
-package edu.ifpb.dac.dao;
+package edu.ifpb.dac.model.dao.implementations;
 
-import edu.ifpb.dac.Produto;
-import edu.ifpb.dac.dao.jpa.ProdutoDAO;
+import edu.ifpb.dac.model.entidades.Produto;
+import edu.ifpb.dac.model.dao.interfaces.ProdutoDAO;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
