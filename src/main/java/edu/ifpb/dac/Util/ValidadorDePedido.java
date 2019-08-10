@@ -1,4 +1,4 @@
-package cartaoCredito;
+package edu.ifpb.dac.Util;
 
 import edu.ifpb.dac.Cartao;
 import edu.ifpb.dac.InformacaoPedido;

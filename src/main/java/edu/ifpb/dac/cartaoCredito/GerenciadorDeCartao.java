@@ -5,7 +5,7 @@
  */
 package edu.ifpb.dac.cartaoCredito;
 
-import cartaoCredito.ValidadorDePedido;
+import edu.ifpb.dac.Util.ValidadorDePedido;
 import edu.ifpb.dac.InformacaoPedido;
 import java.util.logging.Level;
 import java.util.logging.Logger;
