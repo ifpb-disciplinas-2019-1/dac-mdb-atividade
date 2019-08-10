@@ -83,6 +83,7 @@ local.properties
 .idea/**/dictionaries
 .idea/**/shelf
 .idea/vcs.xml
+.idea/misc.xml
 
 # Generated files
 .idea/**/contentModel.xml
