@@ -12,7 +12,7 @@ import edu.ifpb.dac.model.entidades.Produto;
 
 @Startup
 @Singleton
-public class GeradorDeProdutos {
+public class GeradorDeProduto {
 	
 	@Inject
 	private ProdutoDAO produtoDAO;
