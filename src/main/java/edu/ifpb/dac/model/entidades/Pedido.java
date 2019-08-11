@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,12 +20,12 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-    @OneToMany(mappedBy = "pedido")
+    @OneToMany(mappedBy = "pedido", cascade=CascadeType.ALL)
     private List<PedidoItem> itens;    
     @ManyToOne
     private Cliente cliente;
     @Column(precision=38, scale=2)
-    private BigDecimal valorFinal;
+    private BigDecimal valorFinal = BigDecimal.ZERO;
     
     private void vincularItens() {
     	for (PedidoItem pedidoItem : itens) {
@@ -33,11 +34,11 @@ public class Pedido implements Serializable {
     }
     
     private void calcularValor() {
-    	BigDecimal valor = BigDecimal.ZERO;
+    	Double valor = 0.0;
     	for (PedidoItem pedidoItem : itens) {
-			valor.add(pedidoItem.getValor());
+			valor += pedidoItem.getValor().doubleValue();
 		}
-    	valorFinal = valor;
+    	this.valorFinal = BigDecimal.valueOf(valor);
     }
     
 	public Pedido() {
@@ -55,7 +56,6 @@ public class Pedido implements Serializable {
 	
 	public void addItem(PedidoItem item) {
 		item.setPedido(this);
-		itens.remove(item);
 		itens.add(item);
 		calcularValor();		
 	}

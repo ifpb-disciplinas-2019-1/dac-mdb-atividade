@@ -11,10 +11,10 @@
 		<h2>Pedido</h2>
 		<hr />
 		<h4>Inserir Item</h4>
-		<label> Informe o código do pedido:</label>
+		<label> Informe o código do produto:</label>
 		<h:inputText value="#{pedidoController.codigoProduto}" />
 		<!--listar os produtos-->
-		<h:commandButton value="+" action="#{pedidoController.inserirProduto}" />
+		<h:commandButton value="+" action="#{pedidoController.inserirProduto()}" />
 		<!--adiciona produto no carrinho-->
 		<br />
 		<p>
@@ -24,41 +24,42 @@
 		</p>
 		<hr />
 		<h4>Itens do pedido</h4>
-		<h:dataTable var="p" value="#">
+		<h:dataTable var="item" value="#{pedidoController.listaItens}">
 			<h:column>
 				<f:facet name="header">Código</f:facet>
-	            #{p}
+	            #{item.produto.id}
             </h:column>
 			<h:column>
 				<f:facet name="header">Produto</f:facet>
-	            #{p}
+	            #{item.produto.descricao}
             </h:column>
 			<h:column>
 				<f:facet name="header">Quantidade</f:facet>
-	            #{p}
+	            #{item.quantidade}
             </h:column>
 			<h:column>
 				<f:facet name="header">V. Unit</f:facet>
-	            #{p}
+	            #{item.valorUnitario}
             </h:column>
 			<h:column>
 				<f:facet name="header">Sub. Valor</f:facet>
-	            #{p}
+	            #{item.valor}
             </h:column>
 			<h:column>
 				<f:facet name="header">Excluir</f:facet>
-				<h:commandButton value="X" action="#" />
+				<h:commandButton value="X" action="#{pedidoController.excluirProduto(item)}" />
 			</h:column>
 		</h:dataTable>
-		<h4>Total: R$ 0,00</h4>
+		<h4>Total: R$ 
+		<h:outputLabel value="#{pedidoController.totalPedido}"/></h4>
 		<hr />
 		<h4>Finalizar pedido.</h4>
 		<div class="input-field">
 			<h:outputLabel for="cpf">Cliente (cpf):</h:outputLabel>
 			<!--cliente insere seu cpf-->
-			<h:inputText id="cpf" value="" />
+			<h:inputText id="cpf" value="#{pedidoController.cpfCliente}" /> 
 		</div>
-		<h:commandButton value="Finalizar pedido" action="#" />
+		<h:commandButton value="Finalizar pedido" action="#{pedidoController.finalizarPedido()}" />
 		<!-- realiza compra-->
 	</h:form>
 </h:body>

@@ -68,7 +68,7 @@ public class PedidoItem implements Serializable{
 	}
 
 	public void setPedido(Pedido pedido) {
-		pedido.addItem(this);
+		this.pedido = pedido;
 	}
 
 	public Produto getProduto() {

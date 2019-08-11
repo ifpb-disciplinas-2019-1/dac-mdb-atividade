@@ -35,8 +35,9 @@ public class ProdutoJPADAO implements ProdutoDAO {
     }
 
 	@Override
-	public Produto buscarPeloCodigo(int codigo) {		
-		return em.find(Produto.class, codigo);
+	public Produto buscarPeloCodigo(int codigo) {	
+		Produto produto = em.find(Produto.class, codigo); 
+		return produto;
 	}
     
     

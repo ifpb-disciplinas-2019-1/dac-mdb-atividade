@@ -3,7 +3,7 @@ package edu.ifpb.dac.controladores;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -15,13 +15,14 @@ import edu.ifpb.dac.services.PedidoService;
  * @author ericl
  */
 @SuppressWarnings("serial")
-@RequestScoped
+@SessionScoped
 @Named
 public class PedidoController implements Serializable {
 
     @Inject
     private PedidoService service;
     private String codigoProduto;
+    private String cpfCliente;
     
     public String inserirProduto() {
     	service.incluirItem(this.codigoProduto);
@@ -34,11 +35,18 @@ public class PedidoController implements Serializable {
     	return "";
     }
     
-    public List<PedidoItem> listaItens(){
+    public String finalizarPedido() {
+    	if (!service.informarClientePeloCpf(cpfCliente))
+    		return null;
+    	service.efetuarPedido();    	
+    	return "";
+    }
+    
+    public List<PedidoItem> getListaItens(){
     	return service.listarItens();
     }
     
-    public Double totalPedido () {
+    public Double getTotalPedido () {
     	return service.totalPedido().doubleValue();
     }
 
@@ -49,5 +57,15 @@ public class PedidoController implements Serializable {
 	public void setCodigoProduto(String codigoProduto) {
 		this.codigoProduto = codigoProduto;
 	}
+
+	public String getCpfCliente() {
+		return cpfCliente;
+	}
+
+	public void setCpfCliente(String cpfCliente) {
+		this.cpfCliente = cpfCliente;
+	}
+	
+	
 
 }

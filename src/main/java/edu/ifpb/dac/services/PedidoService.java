@@ -2,14 +2,11 @@ package edu.ifpb.dac.services;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.ejb.ActivationConfigProperty;
-import javax.ejb.MessageDriven;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
@@ -18,8 +15,9 @@ import javax.jms.JMSProducer;
 import javax.jms.Message;
 import javax.jms.Topic;
 
-import edu.ifpb.dac.model.dao.implementations.PedidoJPADAO;
-import edu.ifpb.dac.model.dao.implementations.ProdutoJPADAO;
+import edu.ifpb.dac.model.dao.interfaces.ClienteDAO;
+import edu.ifpb.dac.model.dao.interfaces.PedidoDAO;
+import edu.ifpb.dac.model.dao.interfaces.ProdutoDAO;
 import edu.ifpb.dac.model.entidades.Cliente;
 import edu.ifpb.dac.model.entidades.InformacaoPedido;
 import edu.ifpb.dac.model.entidades.Pedido;
@@ -36,15 +34,17 @@ public class PedidoService implements Serializable{
 	private final char CODIGO_QUANTIDADE = '*';
 	
 	@Inject
-    private PedidoJPADAO pedidoJPADAO;
+    private PedidoDAO pedidoJPADAO;
 	@Inject
-    private ProdutoJPADAO produtoJPADAO;
+    private ProdutoDAO produtoJPADAO;
+	@Inject
+	private ClienteDAO clienteJPADAO;
 	
     private Pedido pedido;
     
     @PostConstruct
     private void init() {
-    	pedido = new Pedido();
+    	criarPedido();
     }
     
     @Resource(lookup = "java:global/jms/pedido")
@@ -71,7 +71,7 @@ public class PedidoService implements Serializable{
     }
     
     private Produto buscarProdutoPeloCodigo(String codigo) {
-    	int inicio = codigoPossuiQuantidade(codigo)?codigo.indexOf(CODIGO_QUANTIDADE):0;
+    	int inicio = codigoPossuiQuantidade(codigo)?codigo.indexOf(CODIGO_QUANTIDADE) +1:0;
     	int tamanho = codigo.length();
     	String subString = codigo.substring(inicio, tamanho);
     	int idProduto = -1;
@@ -94,11 +94,7 @@ public class PedidoService implements Serializable{
     	return quantidade;
     }
 
-	public PedidoService() {
-		pedidoJPADAO = new PedidoJPADAO();
-		produtoJPADAO = new ProdutoJPADAO();
-		pedido = new Pedido();
-	}
+	public PedidoService() {	}
 	
 	public Pedido criarPedido() {
 		pedido = new Pedido();
@@ -115,6 +111,12 @@ public class PedidoService implements Serializable{
 			pedido = criarPedido();
 		pedido.setCliente(cliente);
 		return pedido;
+	}
+	
+	public Boolean informarClientePeloCpf(String cpf) {
+		Cliente cliente = clienteJPADAO.buscarClientePeloCpf(cpf);
+		pedido.setCliente(cliente);
+		return pedido != null;
 	}
 	
 	public List<PedidoItem> listarItens() {
@@ -141,7 +143,7 @@ public class PedidoService implements Serializable{
 		return pedido;
 	}
 	
-	public void efetuarPedido(Pedido pedido) {
+	public void efetuarPedido() {
 		
 		pedidoJPADAO.save(pedido);
 		InformacaoPedido informacaoPedido = new InformacaoPedido(
