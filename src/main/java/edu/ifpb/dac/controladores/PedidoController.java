@@ -1,9 +1,7 @@
-package edu.ifpb.controlador;
+package edu.ifpb.dac.controladores;
 
-import edu.ifpb.dac.Cliente;
-import edu.ifpb.dac.Pedido;
-import edu.ifpb.dac.Produto;
-import edu.ifpb.dac.dao.jpa.PedidoDAO;
+import edu.ifpb.dac.model.entidades.Pedido;
+import edu.ifpb.dac.model.dao.interfaces.PedidoDAO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

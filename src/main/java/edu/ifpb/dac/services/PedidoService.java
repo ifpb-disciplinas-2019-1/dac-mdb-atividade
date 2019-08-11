@@ -1,4 +1,4 @@
-package edu.ifpb.dac.dao;
+package edu.ifpb.dac.services;
 
 import java.math.BigDecimal;
 
@@ -9,7 +9,9 @@ import javax.jms.JMSProducer;
 import javax.jms.Message;
 import javax.jms.Topic;
 
-import edu.ifpb.dac.*;
+import edu.ifpb.dac.model.dao.implementations.PedidoJPADAO;
+import edu.ifpb.dac.model.entidades.InformacaoPedido;
+import edu.ifpb.dac.model.entidades.Pedido;
 
 public class PedidoService {
 

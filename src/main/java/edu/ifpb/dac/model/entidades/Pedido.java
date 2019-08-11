@@ -1,15 +1,16 @@
-package edu.ifpb.dac;
+package edu.ifpb.dac.model.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
 
-/**
- *
- * @author Ricardo Job
- */
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+ 
 @Entity
 public class Pedido implements Serializable {
 

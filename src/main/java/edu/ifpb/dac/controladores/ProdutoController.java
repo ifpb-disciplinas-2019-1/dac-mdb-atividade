@@ -1,7 +1,7 @@
-package edu.ifpb.controlador;
+package edu.ifpb.dac.controladores;
 
-import edu.ifpb.dac.Produto;
-import edu.ifpb.dac.dao.jpa.ProdutoDAO;
+import edu.ifpb.dac.model.entidades.Produto;
+import edu.ifpb.dac.model.dao.interfaces.ProdutoDAO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
