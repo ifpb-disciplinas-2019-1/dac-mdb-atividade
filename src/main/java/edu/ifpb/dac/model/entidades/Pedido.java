@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,6 +23,7 @@ public class Pedido implements Serializable {
     private List<PedidoItem> itens;    
     @ManyToOne
     private Cliente cliente;
+    @Column(precision=38, scale=2)
     private BigDecimal valorFinal;
     
     private void vincularItens() {
