@@ -33,4 +33,11 @@ public class ProdutoJPADAO implements ProdutoDAO {
     public List<Produto> list() {
         return em.createQuery("SELECT p FROM Produto p").getResultList();
     }
+
+	@Override
+	public Produto buscarPeloCodigo(int codigo) {		
+		return em.find(Produto.class, codigo);
+	}
+    
+    
 }

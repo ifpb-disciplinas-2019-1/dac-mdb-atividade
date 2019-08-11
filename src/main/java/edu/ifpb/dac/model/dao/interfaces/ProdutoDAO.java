@@ -5,6 +5,7 @@ import edu.ifpb.dac.model.entidades.Produto;
 import java.util.List;
 
 public interface ProdutoDAO extends GenericDAO<Produto> {
-
+	
+	Produto buscarPeloCodigo(int codigo);
 
 }

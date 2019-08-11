@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
  
+@SuppressWarnings("serial")
 @Entity
 public class Pedido implements Serializable {
 
@@ -54,11 +55,22 @@ public class Pedido implements Serializable {
 		item.setPedido(this);
 		itens.remove(item);
 		itens.add(item);
+		calcularValor();		
 	}
 	
 	public void removeItem(PedidoItem item) {
 		item.setPedido(null);
 		itens.remove(item);
+		calcularValor();
+	}
+	
+	public void removerItem(int codigoItem) {
+		for (PedidoItem pedidoItem : itens) {
+			if (pedidoItem.getId() == codigoItem) {
+				removeItem(pedidoItem);
+				return;
+			}
+		}
 	}
 
 	public int getId() {
