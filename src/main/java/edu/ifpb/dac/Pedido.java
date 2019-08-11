@@ -16,65 +16,105 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-
-    @OneToMany
-    private List<Produto> produtos;
-    
+    @OneToMany(mappedBy = "pedido")
+    private List<PedidoItem> itens;    
     @ManyToOne
     private Cliente cliente;
-
     private BigDecimal valorFinal;
-
-    public Pedido() {
-        this.produtos = new ArrayList<>();
+    
+    private void vincularItens() {
+    	for (PedidoItem pedidoItem : itens) {
+			pedidoItem.setPedido(this);
+		}
     }
     
+    private void calcularValor() {
+    	BigDecimal valor = BigDecimal.ZERO;
+    	for (PedidoItem pedidoItem : itens) {
+			valor.add(pedidoItem.getValor());
+		}
+    	valorFinal = valor;
+    }
     
+	public Pedido() {
+		this.itens = new ArrayList<PedidoItem>(); 
+	}
 
-    public Pedido(int id, List<Produto> produtos, Cliente cliente, BigDecimal valorFinal) {
+	public Pedido(int id, List<PedidoItem> itens, Cliente cliente) {
 		super();
 		this.id = id;
-		this.produtos = produtos;
+		this.itens = itens;
 		this.cliente = cliente;
-		this.valorFinal = valorFinal;
+		calcularValor();
+		vincularItens();
+	}
+	
+	public void addItem(PedidoItem item) {
+		item.setPedido(this);
+		itens.remove(item);
+		itens.add(item);
+	}
+	
+	public void removeItem(PedidoItem item) {
+		item.setPedido(null);
+		itens.remove(item);
 	}
 
 	public int getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void add(Produto produto) {
-        this.produtos.add(produto);
-    }
+	public List<PedidoItem> getItens() {
+		return itens;
+	}
 
-    public void remove(Produto produto) {
-        this.produtos.remove(produto);
-    }
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
+	public void setItens(List<PedidoItem> itens) {
+		this.itens = itens;
+		calcularValor();
+		vincularItens();
+	}
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
+	public Cliente getCliente() {
+		return cliente;
+	}
 
-    public Cliente getCliente() {
-        return cliente;
-    }
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
+	public BigDecimal getValorFinal() {
+		return valorFinal;
+	}
 
-    public BigDecimal getValorFinal() {
-        return valorFinal;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
 
-    public void setValorFinal(BigDecimal valorFinal) {
-        this.valorFinal = valorFinal;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pedido other = (Pedido) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Pedido [id=" + id + ", itens=" + itens + ", cliente=" + cliente + ", valorFinal=" + valorFinal + "]";
+	}
+	
 }
