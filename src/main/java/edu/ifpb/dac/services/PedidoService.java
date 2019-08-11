@@ -1,5 +1,6 @@
 package edu.ifpb.dac.services;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,12 +26,12 @@ import edu.ifpb.dac.model.entidades.Pedido;
 import edu.ifpb.dac.model.entidades.PedidoItem;
 import edu.ifpb.dac.model.entidades.Produto;
 
-@MessageDriven(activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationType",propertyValue = "javax.jms.Topic"),
-        @ActivationConfigProperty(propertyName = "destinationLookup",propertyValue = "java:global/jms/pedido")
-})
+//@MessageDriven(activationConfig = {
+//        @ActivationConfigProperty(propertyName = "destinationType",propertyValue = "javax.jms.Topic"),
+//        @ActivationConfigProperty(propertyName = "destinationLookup",propertyValue = "java:global/jms/pedido")
+//})
 @Stateless
-public class PedidoService {
+public class PedidoService implements Serializable{
 	
 	private final char CODIGO_QUANTIDADE = '*';
 	
