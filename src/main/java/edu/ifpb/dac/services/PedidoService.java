@@ -2,7 +2,12 @@ package edu.ifpb.dac.services;
 
 import java.math.BigDecimal;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSContext;
 import javax.jms.JMSProducer;
@@ -17,14 +22,26 @@ import edu.ifpb.dac.model.entidades.Pedido;
 import edu.ifpb.dac.model.entidades.PedidoItem;
 import edu.ifpb.dac.model.entidades.Produto;
 
+@MessageDriven(activationConfig = {
+        @ActivationConfigProperty(propertyName = "destinationType",propertyValue = "javax.jms.Topic"),
+        @ActivationConfigProperty(propertyName = "destinationLookup",propertyValue = "java:global/jms/pedido")
+})
+@Stateless
 public class PedidoService {
 	
 	private final char CODIGO_QUANTIDADE = '*';
-
+	
+	@Inject
     private PedidoJPADAO pedidoJPADAO;
+	@Inject
     private ProdutoJPADAO produtoJPADAO;
-    
+	
     private Pedido pedido;
+    
+    @PostConstruct
+    private void init() {
+    	pedido = new Pedido();
+    }
     
     @Resource(lookup = "jms/pedido")
     private Topic topic;
@@ -39,7 +56,8 @@ public class PedidoService {
         Message mensagem = context.createObjectMessage(informacaoPedido);
         // enviar para o canal de comunicação
         producer.send(
-            topic,mensagem
+            topic,
+            mensagem
         );
     }
     
@@ -112,14 +130,15 @@ public class PedidoService {
 	}
 	
 	public void efetuarPedido(Pedido pedido) {
-		pedidoJPADAO.save(pedido);
 		
+		pedidoJPADAO.save(pedido);
 		InformacaoPedido informacaoPedido = new InformacaoPedido(
-				"cpf", 
+				pedido.getCliente().getCpf(), 
 				String.valueOf(pedido.getId()), 
 				pedido.getCliente().getEmail(), 
-				BigDecimal.valueOf(1.0), 
+				pedido.getValorFinal(), 
 				false);
+		enviarPedidoJMS(informacaoPedido);
 		pedido = new Pedido();
 	}
 
