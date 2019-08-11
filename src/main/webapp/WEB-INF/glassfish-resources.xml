@@ -18,8 +18,8 @@
                           statement-timeout-in-seconds="-1" steady-pool-size="8"
                           validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false"
                           name="post-gre-sql_persistence_events_postgresPool" >
-        <property name="serverName" value="db_calendario_IFPB"/>
-        <property name="portNumber" value="5432"/>
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="5433"/>
         <property name="databaseName" value="dac_jms"/>
         <property name="User" value="postgres"/>
         <property name="Password" value="postgres"/>

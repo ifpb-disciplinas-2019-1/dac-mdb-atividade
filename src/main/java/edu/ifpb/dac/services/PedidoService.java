@@ -43,7 +43,7 @@ public class PedidoService {
     	pedido = new Pedido();
     }
     
-    @Resource(lookup = "jms/pedido")
+    @Resource(lookup = "java:global/jms/pedido")
     private Topic topic;
     
     @Resource(lookup = "jms/__defaultConnectionFactory")
