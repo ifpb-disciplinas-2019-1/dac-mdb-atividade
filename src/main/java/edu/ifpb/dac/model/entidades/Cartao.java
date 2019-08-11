@@ -7,6 +7,8 @@ package edu.ifpb.dac.model.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -20,6 +22,7 @@ public class Cartao implements Serializable{
     private String numero;
     private String cpfPropietario;
     private String nomePropietario;
+    @Column(precision=38, scale=2)
     private BigDecimal limite;
 
     public Cartao(String numero, String cpfPropietario, String nomePropietario, BigDecimal limite) {

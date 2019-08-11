@@ -3,6 +3,7 @@ package edu.ifpb.dac.model.entidades;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,7 +19,9 @@ public class PedidoItem implements Serializable{
 	@ManyToOne
 	private Produto produto;
 	private int quantidade;
+	@Column(precision=38, scale=2)
 	private BigDecimal valorUnitario;
+	@Column(precision=38, scale=2)
 	private BigDecimal valor;
 	@ManyToOne
 	@JoinColumn(name="pedido_id")
