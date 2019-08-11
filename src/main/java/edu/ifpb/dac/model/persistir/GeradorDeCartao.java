@@ -1,15 +1,14 @@
 package edu.ifpb.dac.model.persistir;
 
-import edu.ifpb.dac.model.dao.interfaces.CartaoDAO;
-import edu.ifpb.dac.model.entidades.Cartao;
+import java.math.BigDecimal;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.math.BigDecimal;
+
+import edu.ifpb.dac.model.dao.interfaces.CartaoDAO;
+import edu.ifpb.dac.model.entidades.Cartao;
 
 @Startup
 @Singleton
