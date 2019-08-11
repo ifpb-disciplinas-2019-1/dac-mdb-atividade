@@ -1,6 +1,9 @@
 package edu.ifpb.dac.services;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -112,6 +115,14 @@ public class PedidoService {
 		pedido.setCliente(cliente);
 		return pedido;
 	}
+	
+	public List<PedidoItem> listarItens() {
+		return Collections.unmodifiableList(pedido.getItens());
+	}
+	
+	public BigDecimal totalPedido() {
+		return pedido.getValorFinal();
+	}
 		
 	public Pedido incluirItem(String codigo) {
 		Produto produto = buscarProdutoPeloCodigo(codigo);
@@ -124,7 +135,7 @@ public class PedidoService {
 		return pedido;				
 	}
 	
-	public Pedido removerItem(int codigoItem) {
+	public Pedido removerItem(Long codigoItem) {
 		pedido.removerItem(codigoItem);
 		return pedido;
 	}

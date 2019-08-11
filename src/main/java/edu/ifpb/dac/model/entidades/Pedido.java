@@ -66,7 +66,7 @@ public class Pedido implements Serializable {
 		calcularValor();
 	}
 	
-	public void removerItem(int codigoItem) {
+	public void removerItem(Long codigoItem) {
 		for (PedidoItem pedidoItem : itens) {
 			if (pedidoItem.getId() == codigoItem) {
 				removeItem(pedidoItem);
