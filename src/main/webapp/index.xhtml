@@ -7,8 +7,8 @@
 </h:head>
 <h:body>
     <h:form>
-        <h:inputText value="#"/>
-        <h:commandButton value="+" action="#"/>
+        <h:inputText value="#"/> <!--listar os produtos-->
+        <h:commandButton value="+" action="#"/> <!--adiciona produto no carrinho-->
         <h:dataTable var="p" value="#">
             <h:column>#{p}</h:column>
             <h:column>
@@ -16,7 +16,12 @@
 
             </h:column>
         </h:dataTable>
-        <h:commandButton value="Finalizar pedido" action="#" />
+        <div class="input-field">
+            <h:outputLabel for="cpf">Cliente (cpf):</h:outputLabel> <!--cliente insere seu cpf-->
+            <h:inputText id="cpf"
+                         value="" />
+        </div>
+        <h:commandButton value="Finalizar pedido" action="#" /> <!-- realiza compra-->
     </h:form>
 </h:body>
 </html>
