@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -15,7 +16,7 @@ import edu.ifpb.dac.services.PedidoService;
  * @author ericl
  */
 @SuppressWarnings("serial")
-@SessionScoped
+@ViewScoped
 @Named
 public class PedidoController implements Serializable {
 
@@ -38,7 +39,8 @@ public class PedidoController implements Serializable {
     public String finalizarPedido() {
     	if (!service.informarClientePeloCpf(cpfCliente))
     		return null;
-    	service.efetuarPedido();    	
+    	service.efetuarPedido(); 
+    	cpfCliente = "";
     	return "";
     }
     
