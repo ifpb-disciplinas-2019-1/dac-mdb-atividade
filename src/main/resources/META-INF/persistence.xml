@@ -9,7 +9,7 @@
     <class>edu.ifpb.dac.model.entidades.Produto</class>
     <class>edu.ifpb.dac.model.entidades.PedidoItem</class>
     <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
   

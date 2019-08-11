@@ -1,4 +1,4 @@
-package edu.ifpb.dac;
+package edu.ifpb.dac.model.entidades;
 
 import java.io.Serializable;
 
@@ -10,6 +10,9 @@ public class Email implements Serializable {
     public Email(String corpo, String destinatário) {
         this.corpo = corpo;
         this.destinatário = destinatário;
+    }
+
+    public Email() {
     }
 
     public String getCorpo() {
